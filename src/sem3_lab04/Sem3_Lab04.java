@@ -8,7 +8,7 @@ package sem3_lab04;
  *
  * @author 2474008
  */
-public class Sem3_Lab04 implements Application{
+public class Sem3_Lab04 implements Applications {
 
     /**
      * @param args the command line arguments
