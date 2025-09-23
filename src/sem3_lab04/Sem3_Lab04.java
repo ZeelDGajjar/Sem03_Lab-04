@@ -42,6 +42,16 @@ public class Sem3_Lab04 extends Application {
         HBox registrationFees = new HBox();
         HBox lodgingCharges = new HBox();
         
+        trips.setAlignment(Pos.CENTER_RIGHT);
+        airfare.setAlignment(Pos.CENTER_RIGHT);
+        carRentals.setAlignment(Pos.CENTER_RIGHT);
+        milesDriven.setAlignment(Pos.CENTER_RIGHT);
+        parkingFees.setAlignment(Pos.CENTER_RIGHT);
+        taxiCharges.setAlignment(Pos.CENTER_RIGHT);
+        registrationFees.setAlignment(Pos.CENTER_RIGHT);
+        lodgingCharges.setAlignment(Pos.CENTER_RIGHT);
+        
+                
         Label numOfDaysAsk = new Label("Number of days on the trip: "); 
         Label amtOfAirfareAsk = new Label("Amount of Airfare: "); 
         Label amtOfCarRentalsAsk = new Label("Amount of car rental fees: "); 
@@ -124,12 +134,15 @@ public class Sem3_Lab04 extends Application {
         
         GridPane root = new GridPane();
         root.add(pairsOfLabelsAndInputs, 2, 2);
-        root.add(btnEnter, 10, 18);
-        root.add(results, 2, 19);
-        root.add(error, 2, 1);
+        root.add(btnEnter, 10, 3);
+        root.add(results, 2, 4);
+        root.add(error, 2, 0);
         root.setAlignment(Pos.CENTER);
         
-        Scene scene = new Scene(root, 600, 500);
+        pairsOfLabelsAndInputs.setSpacing(3);
+        error.getStyleClass().add("error");
+        Scene scene = new Scene(root, 800, 600);
+        scene.getStylesheets().add("style.css");
         stage.setScene(scene); 
         stage.show(); 
     }
