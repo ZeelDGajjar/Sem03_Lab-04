@@ -20,7 +20,7 @@ import javafx.stage.Stage;
  * @author 2474008
  */
 public class Sem3_Lab04 extends Application {
-
+    //to add: css, Adding the variable to count seperatly
     /**
      * @param args the command line arguments
      */
@@ -59,7 +59,25 @@ public class Sem3_Lab04 extends Application {
         TextField amtOfTaxiChargesIn = new TextField();
         TextField RegistrationFeesIn = new TextField();
         TextField LodgingChargesIn = new TextField();
-
+        
+        numOfMilesIn.setOnKeyReleased(e -> {
+            amtOfTaxiChargesIn.setText("0");
+            amtOfTaxiChargesIn.setDisable(true);
+            
+            if (numOfMilesIn.getText().isBlank()) {
+                amtOfTaxiChargesIn.setDisable(false);
+            }
+        });
+        
+        amtOfTaxiChargesIn.setOnKeyReleased(e -> {
+            numOfMilesIn.setText("0");
+            numOfMilesIn.setDisable(true);
+            
+            if (amtOfTaxiChargesIn.getText().isBlank()) {
+                numOfMilesIn.setDisable(false);
+            }
+        });
+        
         trips.getChildren().addAll(numOfDaysAsk, numOfDaysIn);
         airfare.getChildren().addAll(amtOfAirfareAsk, amtOfAirfareIn);
         carRentals.getChildren().addAll(amtOfCarRentalsAsk, amtOfCarRentalsIn);
@@ -79,28 +97,36 @@ public class Sem3_Lab04 extends Application {
         Label amountSaved = new Label("The Amount Saved by the Business Person: ");
         results.getChildren().addAll(totalExpenses, totalAllowableExpenses, excessToBePaid, amountSaved);
         
-        int numOfDays = Integer.parseInt(numOfDaysIn.getText());
-        double amtOfAirfare = Double.parseDouble(amtOfAirfareIn.getText());
-        double amtOfCarRentals = Double.parseDouble(amtOfCarRentalsIn.getText());
-        double numOfMiles = Double.parseDouble(numOfMilesIn.getText());
-        double amtOfParkingFees = Double.parseDouble(amtOfParkingFeesIn.getText());
-        double amtOfTaxiCharges = Double.parseDouble(amtOfTaxiChargesIn.getText());
-        double RegistrationFees = Double.parseDouble(RegistrationFeesIn.getText());
-        double LodgingCharges = Double.parseDouble(LodgingChargesIn.getText());
-
-        BusinessPerson businessPerson1 = new BusinessPerson(numOfDays, amtOfAirfare, amtOfCarRentals, numOfMiles, amtOfParkingFees, amtOfTaxiCharges, RegistrationFees, LodgingCharges);
-
+        Label error = new Label("");
+        
         Button btnEnter = new Button("Enter");
         btnEnter.setOnAction(e -> {
+            try {
+            int numOfDays = Integer.parseInt(numOfDaysIn.getText());
+            double amtOfAirfare = Double.parseDouble(amtOfAirfareIn.getText());
+            double amtOfCarRentals = Double.parseDouble(amtOfCarRentalsIn.getText());
+            double numOfMiles = Double.parseDouble(numOfMilesIn.getText());
+            double amtOfParkingFees = Double.parseDouble(amtOfParkingFeesIn.getText());
+            double amtOfTaxiCharges = Double.parseDouble(amtOfTaxiChargesIn.getText());
+            double RegistrationFees = Double.parseDouble(RegistrationFeesIn.getText());
+            double LodgingCharges = Double.parseDouble(LodgingChargesIn.getText());
+            
+            BusinessPerson businessPerson1 = new BusinessPerson(numOfDays, amtOfAirfare, amtOfCarRentals, numOfMiles, amtOfParkingFees, amtOfTaxiCharges, RegistrationFees, LodgingCharges);
+            
             totalExpenses.setText(String.format("Total Expense: %.2f", businessPerson1.calculateTotalExpenses()));
             totalAllowableExpenses.setText(String.format("Total Allowable Expense: %.2f", businessPerson1.calculateTotalAllowableCharges()));
             excessToBePaid.setText(String.format("The Excess to be Paid: %.2f", businessPerson1.calculateExcessToPay()));
             amountSaved.setText(String.format("The Amount Saved by the Business Person: %.2f", businessPerson1.calculateAmountSaved()));
+            } catch (NumberFormatException ex) {
+                error.setText("Please enter valid numbers in all fields!");
+            }
         });
         
         GridPane root = new GridPane();
         root.add(pairsOfLabelsAndInputs, 2, 2);
         root.add(btnEnter, 10, 18);
+        root.add(results, 2, 19);
+        root.add(error, 2, 1);
         root.setAlignment(Pos.CENTER);
         
         Scene scene = new Scene(root, 600, 500);
