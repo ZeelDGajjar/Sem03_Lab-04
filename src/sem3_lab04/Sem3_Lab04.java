@@ -20,7 +20,7 @@ import javafx.stage.Stage;
  * @author 2474008
  */
 public class Sem3_Lab04 extends Application {
-    //to add: css, Adding the variable to count seperatly
+    
     /**
      * @param args the command line arguments
      */
