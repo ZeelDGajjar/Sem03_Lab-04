@@ -79,7 +79,16 @@ public class Sem3_Lab04 extends Application {
         Label amountSaved = new Label("The Amount Saved by the Business Person: ");
         results.getChildren().addAll(totalExpenses, totalAllowableExpenses, excessToBePaid, amountSaved);
         
-        BusinessPerson businessPerson1 = new BusinessPerson(Integer.parseInt(numOfDaysIn.getText()), Double.parseDouble(amtOfAirfareIn.getText()), Double.parseDouble(amtOfCarRentalsIn.getText()), Double.parseDouble(numOfMilesIn.getText()), Double.parseDouble(amtOfParkingFeesIn.getText()), Double.parseDouble(amtOfTaxiChargesIn.getText()), Double.parseDouble(RegistrationFeesIn.getText()), Double.parseDouble(LodgingChargesIn.getText()));
+        int numOfDays = Integer.parseInt(numOfDaysIn.getText());
+        double amtOfAirfare = Double.parseDouble(amtOfAirfareIn.getText());
+        double amtOfCarRentals = Double.parseDouble(amtOfCarRentalsIn.getText());
+        double numOfMiles = Double.parseDouble(numOfMilesIn.getText());
+        double amtOfParkingFees = Double.parseDouble(amtOfParkingFeesIn.getText());
+        double amtOfTaxiCharges = Double.parseDouble(amtOfTaxiChargesIn.getText());
+        double RegistrationFees = Double.parseDouble(RegistrationFeesIn.getText());
+        double LodgingCharges = Double.parseDouble(LodgingChargesIn.getText());
+
+        BusinessPerson businessPerson1 = new BusinessPerson(numOfDays, amtOfAirfare, amtOfCarRentals, numOfMiles, amtOfParkingFees, amtOfTaxiCharges, RegistrationFees, LodgingCharges);
 
         Button btnEnter = new Button("Enter");
         btnEnter.setOnAction(e -> {
