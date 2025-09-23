@@ -5,9 +5,14 @@
 package sem3_lab04;
 
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -25,12 +30,71 @@ public class Sem3_Lab04 extends Application {
 
     @Override
     public void start(Stage stage){
-        stage.setTitle("Business App"); 
-        Label label = new Label("Press a key"); 
+        stage.setTitle("Business Trip Calculating App"); 
+        
+        VBox pairsOfLabelsAndInputs = new VBox();
+        HBox trips = new HBox();
+        HBox airfare = new HBox();
+        HBox carRentals = new HBox();
+        HBox milesDriven = new HBox();
+        HBox parkingFees = new HBox();
+        HBox taxiCharges = new HBox();
+        HBox registrationFees = new HBox();
+        HBox lodgingCharges = new HBox();
+        
+        Label numOfDaysAsk = new Label("Number of days on the trip: "); 
+        Label amtOfAirfareAsk = new Label("Amount of Airfare: "); 
+        Label amtOfCarRentalsAsk = new Label("Amount of car rental fees: "); 
+        Label numOfMilesAsk = new Label("Number of miles driven: "); 
+        Label amtOfParkingFeesAsk = new Label("Amount of parking fees: "); 
+        Label amtOfTaxiChargesAsk = new Label("Amount of taxi charges: "); 
+        Label RegistrationFeesAsk = new Label("Conference or seminar registration fees: "); 
+        Label LodgingChargesAsk = new Label("Lodging charges: "); 
+        
+        TextField numOfDaysIn = new TextField();
+        TextField amtOfAirfareIn = new TextField();
+        TextField amtOfCarRentalsIn = new TextField();
+        TextField numOfMilesIn = new TextField();
+        TextField amtOfParkingFeesIn = new TextField();
+        TextField amtOfTaxiChargesIn = new TextField();
+        TextField RegistrationFeesIn = new TextField();
+        TextField LodgingChargesIn = new TextField();
+
+        trips.getChildren().addAll(numOfDaysAsk, numOfDaysIn);
+        airfare.getChildren().addAll(amtOfAirfareAsk, amtOfAirfareIn);
+        carRentals.getChildren().addAll(amtOfCarRentalsAsk, amtOfCarRentalsIn);
+        milesDriven.getChildren().addAll(numOfMilesAsk, numOfMilesIn);
+        parkingFees.getChildren().addAll(amtOfParkingFeesAsk, amtOfParkingFeesIn);
+        taxiCharges.getChildren().addAll(amtOfTaxiChargesAsk, amtOfTaxiChargesIn);
+        registrationFees.getChildren().addAll(RegistrationFeesAsk, RegistrationFeesIn);
+        lodgingCharges.getChildren().addAll(LodgingChargesAsk, LodgingChargesIn);
+        
+        pairsOfLabelsAndInputs.getChildren().addAll(trips, airfare, carRentals, milesDriven, parkingFees, taxiCharges, registrationFees, lodgingCharges);
+        pairsOfLabelsAndInputs.setAlignment(Pos.CENTER);
+        
+        VBox results = new VBox();
+        Label totalExpenses = new Label("Total Expense: ");
+        Label totalAllowableExpenses = new Label("Total Allowable Expense: ");
+        Label excessToBePaid = new Label("The Excess to be Paid: ");
+        Label amountSaved = new Label("The Amount Saved by the Business Person: ");
+        results.getChildren().addAll(totalExpenses, totalAllowableExpenses, excessToBePaid, amountSaved);
+        
+        BusinessPerson businessPerson1 = new BusinessPerson(Integer.parseInt(numOfDaysIn.getText()), Double.parseDouble(amtOfAirfareIn.getText()), Double.parseDouble(amtOfCarRentalsIn.getText()), Double.parseDouble(numOfMilesIn.getText()), Double.parseDouble(amtOfParkingFeesIn.getText()), Double.parseDouble(amtOfTaxiChargesIn.getText()), Double.parseDouble(RegistrationFeesIn.getText()), Double.parseDouble(LodgingChargesIn.getText()));
+
+        Button btnEnter = new Button("Enter");
+        btnEnter.setOnAction(e -> {
+            totalExpenses.setText(String.format("Total Expense: %.2f", businessPerson1.calculateTotalExpenses()));
+            totalAllowableExpenses.setText(String.format("Total Allowable Expense: %.2f", businessPerson1.calculateTotalAllowableCharges()));
+            excessToBePaid.setText(String.format("The Excess to be Paid: %.2f", businessPerson1.calculateExcessToPay()));
+            amountSaved.setText(String.format("The Amount Saved by the Business Person: %.2f", businessPerson1.calculateAmountSaved()));
+        });
         
         GridPane root = new GridPane();
+        root.add(pairsOfLabelsAndInputs, 2, 2);
+        root.add(btnEnter, 10, 18);
+        root.setAlignment(Pos.CENTER);
         
-        Scene scene = new Scene(root, 300, 400);
+        Scene scene = new Scene(root, 600, 500);
         stage.setScene(scene); 
         stage.show(); 
     }
